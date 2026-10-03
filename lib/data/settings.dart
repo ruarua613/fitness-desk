@@ -23,6 +23,35 @@ class Settings {
     _flush();
   }
 
+  String get llmBaseUrl {
+    final v = (_data['llmBaseUrl'] as String?)?.trim() ?? '';
+    return v.isEmpty ? 'https://api.deepseek.com/v1' : v;
+  }
+
+  set llmBaseUrl(String v) {
+    _data['llmBaseUrl'] = v;
+    _flush();
+  }
+
+  String get llmApiKey => (_data['llmApiKey'] as String?)?.trim() ?? '';
+
+  set llmApiKey(String v) {
+    _data['llmApiKey'] = v;
+    _flush();
+  }
+
+  String get llmModel {
+    final v = (_data['llmModel'] as String?)?.trim() ?? '';
+    return v.isEmpty ? 'deepseek-chat' : v;
+  }
+
+  set llmModel(String v) {
+    _data['llmModel'] = v;
+    _flush();
+  }
+
+  bool get hasLlm => llmApiKey.isNotEmpty;
+
   Future<void> load() async {
     try {
       final file = await _file;

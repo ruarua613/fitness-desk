@@ -10,6 +10,7 @@ import '../data/models.dart';
 import '../scope.dart';
 import '../utils.dart';
 import '../widgets.dart';
+import 'assistant_page.dart';
 
 class MePage extends StatefulWidget {
   const MePage({super.key});
@@ -224,7 +225,8 @@ class _MePageState extends State<MePage> {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    final increment = AppScope.of(context).settings.incrementKg;
+    final scope = AppScope.of(context);
+    final increment = scope.settings.incrementKg;
 
     return Scaffold(
       appBar: AppBar(title: const Text('我的')),
@@ -327,6 +329,46 @@ class _MePageState extends State<MePage> {
                                 },
                               );
                             }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SectionTitle('AI 助手'),
+                    AppCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '每次提问会带上你的体重围度、近期训练、当前计划和今日饮食的摘要。'
+                            'App 只跟你填的那个接口通信。',
+                            style: TextStyle(fontSize: 12.5, height: 1.55, color: cs.onSurfaceVariant),
+                          ),
+                          const SizedBox(height: 6),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(Icons.auto_awesome_rounded),
+                            title: const Text('模型接口'),
+                            subtitle: Text(
+                              scope.settings.hasLlm
+                                  ? '${scope.settings.llmBaseUrl}\n${scope.settings.llmModel}'
+                                  : '未配置，点这里填 Key',
+                            ),
+                            isThreeLine: true,
+                            trailing: const Icon(Icons.chevron_right_rounded),
+                            onTap: () => showModalBottomSheet<void>(
+                              context: context,
+                              isScrollControlled: true,
+                              showDragHandle: true,
+                              builder: (ctx) => Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+                                  left: 16,
+                                  right: 16,
+                                  top: 8,
+                                ),
+                                child: const SingleChildScrollView(child: LlmConfigForm()),
+                              ),
+                            ),
                           ),
                         ],
                       ),

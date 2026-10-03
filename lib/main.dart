@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'data/local_repository.dart';
 import 'data/settings.dart';
+import 'pages/assistant_page.dart';
 import 'pages/body_page.dart';
 import 'pages/history_page.dart';
 import 'pages/me_page.dart';
@@ -52,6 +53,7 @@ class _AppShellState extends State<AppShell> {
 
   static const _pages = [
     TodayPage(),
+    AssistantPage(),
     PlansPage(),
     HistoryPage(),
     BodyPage(),
@@ -70,6 +72,11 @@ class _AppShellState extends State<AppShell> {
             icon: Icon(Icons.today_outlined),
             selectedIcon: Icon(Icons.today_rounded),
             label: '今日',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.auto_awesome_outlined),
+            selectedIcon: Icon(Icons.auto_awesome_rounded),
+            label: '助手',
           ),
           NavigationDestination(
             icon: Icon(Icons.calendar_month_outlined),
