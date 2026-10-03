@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/models.dart';
+import '../data/repository.dart';
 import '../domain/catalog.dart';
 import '../domain/progression.dart';
 import '../scope.dart';
