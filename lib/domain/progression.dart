@@ -44,7 +44,7 @@ double? _lastRpe(List<SetLog> sets) {
 }
 
 double? _avgRpe(List<SetLog> sets) {
-  final xs = sets.map((s) => s.rpe).where((v) => v != null && v! > 0).cast<double>().toList();
+  final xs = sets.map((s) => s.rpe).whereType<double>().where((v) => v > 0).toList();
   if (xs.isEmpty) return null;
   return xs.reduce((a, b) => a + b) / xs.length;
 }
