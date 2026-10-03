@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import '../data/repository.dart';
 import '../data/settings.dart';
-import 'catalog.dart';
 import 'chat_message.dart';
 import 'plan_prompt.dart';
 

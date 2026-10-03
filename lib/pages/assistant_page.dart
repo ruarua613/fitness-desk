@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/models.dart';
+import '../data/settings.dart';
 import '../domain/assistant.dart';
 import '../domain/chat_message.dart';
 import '../domain/llm_client.dart';
@@ -23,7 +24,6 @@ class _AssistantPageState extends State<AssistantPage> {
   final ScrollController _scroll = ScrollController();
   String _profile = '';
   bool _busy = false;
-  bool _ready = false;
   static const _maxTurns = 14;
 
   @override
@@ -45,7 +45,6 @@ class _AssistantPageState extends State<AssistantPage> {
     if (!mounted) return;
     setState(() {
       _profile = text;
-      _ready = true;
     });
   }
 
@@ -315,7 +314,7 @@ class _AssistantPageState extends State<AssistantPage> {
                 child: ActionChip(
                   label: Text(t),
                   avatar: const Icon(Icons.auto_awesome_rounded, size: 15),
-                  onTap: () => _input.text = t,
+                  onPressed: () => _input.text = t,
                 ),
               ),
             )
@@ -520,12 +519,14 @@ class _LlmConfigFormState extends State<LlmConfigForm> {
         const SizedBox(height: 12),
         Wrap(
           spacing: 8,
-          children: kLlmPresets.map(
-            (p) => ActionChip(
-              label: Text(p.name),
-              onPressed: () => _apply(p),
-            ),
-          ),
+          children: kLlmPresets
+              .map(
+                (p) => ActionChip(
+                  label: Text(p.name),
+                  onPressed: () => _apply(p),
+                ),
+              )
+              .toList(),
         ),
         const SizedBox(height: 14),
         TextField(
